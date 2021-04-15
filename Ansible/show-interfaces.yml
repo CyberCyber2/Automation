@@ -1,0 +1,19 @@
+---
+- name: RUN COMMAND
+  hosts: routers
+  gather_facts: false
+
+  tasks:
+    - debug:
+        msg: "{{ansible_network_os}}"
+    - debug:
+        msg: "{{show_interfaces}}"
+
+    - name: RUN SHOW COMMAND
+      cli_command:
+        command: "{{show_interfaces}}"
+      register: command_output
+
+    - name: PRINT TO TERMINAL WINDOW
+      debug:
+        msg: "{{command_output.stdout}}"
