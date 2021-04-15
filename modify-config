@@ -1,0 +1,18 @@
+---
+- name: CHANGE CONFIG
+  hosts: routers
+  gather_facts: false
+
+  tasks:
+
+    - name: LOAD NTP CONFIG
+      cli_config:
+        config: "{{ntp_commands}}"
+      notify:
+        - SAVE CONFIGURATION
+
+  handlers:
+
+    - name: SAVE CONFIG
+      cli_command:
+        command: "{{save}}"
